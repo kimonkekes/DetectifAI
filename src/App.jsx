@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Navigation from './components/Navigation/Navigation'
 import Logo from './components/Logo/Logo'
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
@@ -6,7 +7,15 @@ import ParticlesBg from 'particles-bg'
 import './App.css'
 
 function App() {
+  const [input, setInput] = useState('')
 
+  const onInputChange = (event) => {
+    console.log(event.target.value)
+  }
+
+  const onButtonSubmit = () => {
+    console.log('click');
+  }
 
   return (
     <>
@@ -14,7 +23,9 @@ function App() {
       <Navigation />
       <Logo />
       <Rank />
-      <ImageLinkForm />
+      <ImageLinkForm 
+        onInputChange={onInputChange} 
+        onButtonSubmit={onButtonSubmit} />
       {/* <FaceRecognition /> */}
     </div>
     <ParticlesBg className='particles' type='cobweb' bg={true} />
