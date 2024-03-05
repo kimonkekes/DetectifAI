@@ -10,22 +10,38 @@ import './App.css'
 function App() {
   const [input, setInput] = useState('')
   const [imageURL, setImageURL] = useState('')
-  
+  const [box, setBox] = useState({})
 
   
-  const PAT = ''
-  const USER_ID = ''
+  const PAT = 'fc9806717fed40859ff726947f18e9fe'
+  const USER_ID = 'kimon'
   const APP_ID = 'image-detection'
   const MODEL_ID = 'face-detection'
 
+
+  const calculateFaceLocation = (data) => {
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
+    const image = document.getElementById('inputImage')
+    const width = Number(image.width)
+    const height = Number(image.height)
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - (clarifaiFace.right_col * width),
+      bottomRow: height - (clarifaiFace.bottom_row * height)
+    }
+  }
+
+  const displayFaceBox = (box) => {
+    setBox(box)
+  }
+
   const onInputChange = (event) => {
     setInput(event.target.value)
-    console.log(input)
   }
 
   const onButtonSubmit = () => {
     setImageURL(input)
-    console.log(imageURL)
 
     const raw = JSON.stringify({
       "user_app_id": {
@@ -54,27 +70,7 @@ function App() {
 
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", requestOptions)
     .then(response => response.json())
-    .then(result => {
-
-        const regions = result.outputs[0].data.regions;
-
-        regions.forEach(region => {
-            const boundingBox = region.region_info.bounding_box;
-            const topRow = boundingBox.top_row.toFixed(3);
-            const leftCol = boundingBox.left_col.toFixed(3);
-            const bottomRow = boundingBox.bottom_row.toFixed(3);
-            const rightCol = boundingBox.right_col.toFixed(3);
-
-            region.data.concepts.forEach(concept => {
-                const name = concept.name;
-                const value = concept.value.toFixed(4);
-
-                console.log(`${name}: ${value} BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
-                
-            });
-        });
-
-    })
+    .then(result => {displayFaceBox(calculateFaceLocation(result))})
     .catch(error => console.log('error', error));
   }
 
@@ -87,7 +83,7 @@ function App() {
       <ImageLinkForm 
         onInputChange={onInputChange} 
         onButtonSubmit={onButtonSubmit} />
-      <FaceRecognition imageURL={imageURL} />
+      <FaceRecognition box={box} imageURL={imageURL} />
     </div>
     <ParticlesBg className='particles' type='cobweb' bg={true} />
     </>
