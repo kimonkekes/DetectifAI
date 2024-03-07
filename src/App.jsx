@@ -15,13 +15,11 @@ function App() {
   const [box, setBox] = useState({})
   const [route, setRoute] = useState('signIn')
   const [isSignedIn, setIsSignedIn] = useState(false)
-
   
-  const PAT = ''
-  const USER_ID = ''
+  const PAT = '54a0b0f3ef2b4725aa2abe3e5e0e82d4'
+  const USER_ID = 'kimon'
   const APP_ID = 'image-detection'
   const MODEL_ID = 'face-detection'
-
 
   const calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
