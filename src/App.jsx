@@ -15,11 +15,27 @@ function App() {
   const [box, setBox] = useState({})
   const [route, setRoute] = useState('signIn')
   const [isSignedIn, setIsSignedIn] = useState(false)
+  const [user, setUser] = useState({id: '',
+                                    name: '',
+                                    email: '',
+                                    entries: 0,
+                                    joined: ''
+                                  })
   
   const PAT = '54a0b0f3ef2b4725aa2abe3e5e0e82d4'
   const USER_ID = 'kimon'
   const APP_ID = 'image-detection'
   const MODEL_ID = 'face-detection'
+
+  const loadUser = (data) => {
+    setUser({
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    })
+  }
 
   const calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
@@ -102,7 +118,7 @@ function App() {
           route === 'signIn' ?
             <SignIn onRouteChange={onRouteChange}/>
           :
-            <Register onRouteChange={onRouteChange}/>
+            <Register onRouteChange={onRouteChange} loadUser={loadUser}/>
         )  
       }
     </div>
