@@ -9,20 +9,22 @@ import Register from './components/Register/Register'
 import ParticlesBg from 'particles-bg'
 import './App.css'
 
+const initialState = {id: '',
+                      name: '',
+                      email: '',
+                      entries: 0,
+                      joined: ''
+                      }
+
 function App() {
   const [input, setInput] = useState('')
   const [imageURL, setImageURL] = useState('')
   const [box, setBox] = useState({})
   const [route, setRoute] = useState('signIn')
   const [isSignedIn, setIsSignedIn] = useState(false)
-  const [user, setUser] = useState({id: '',
-                                    name: '',
-                                    email: '',
-                                    entries: 0,
-                                    joined: ''
-                                  })
+  const [user, setUser] = useState(initialState)
   
-  const PAT = '54a0b0f3ef2b4725aa2abe3e5e0e82d4'
+  const PAT = 'd98f4d87b9cc4ffea0bdad9715cbe3b4'
   const USER_ID = 'kimon'
   const APP_ID = 'image-detection'
   const MODEL_ID = 'face-detection'
@@ -101,6 +103,7 @@ function App() {
           .then(count => {
             setUser({...user, entries: count})
           })
+          .catch(console.log)
       }
       displayFaceBox(calculateFaceLocation(result))
     })
@@ -110,8 +113,10 @@ function App() {
   const onRouteChange = (route) => {
     if (route === 'signOut') {
       setIsSignedIn(false)
+      setUser(initialState)
+      setImageURL('')
     } else if (route === 'home') {
-      setIsSignedIn(true)
+        setIsSignedIn(true)
     }
     setRoute(route)
   }
