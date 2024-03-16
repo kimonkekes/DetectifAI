@@ -23,11 +23,6 @@ function App() {
   const [route, setRoute] = useState('signIn')
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [user, setUser] = useState(initialState)
-  
-  const PAT = 'd98f4d87b9cc4ffea0bdad9715cbe3b4'
-  const USER_ID = 'kimon'
-  const APP_ID = 'image-detection'
-  const MODEL_ID = 'face-detection'
 
   const loadUser = (data) => {
     setUser({
@@ -62,33 +57,13 @@ function App() {
 
   const onPictureSubmit = () => {
     setImageURL(input)
-
-    const raw = JSON.stringify({
-      "user_app_id": {
-          "user_id": USER_ID,
-          "app_id": APP_ID
-      },
-      "inputs": [
-          {
-              "data": {
-                  "image": {
-                      "url": input
-                  }
-              }
-          }
-      ]
-  });
-  
-  const requestOptions = {
-      method: 'POST',
-      headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Key ' + PAT
-      },
-      body: raw
-  };
-
-    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", requestOptions)
+    fetch('http://localhost:3000/imageurl', {
+          method: 'post',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            input: input
+          })
+        })
     .then(response => response.json())
     .then(result => {
       if (result) {
