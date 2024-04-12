@@ -117,6 +117,9 @@ function App() {
         )  
       }
     </div>
+    <div className='warning'>
+    ⚠️ Due to periodical server hibernation, it may take several seconds for the <b>&ldquo;Login&ldquo;</b> or <b>&ldquo;Register&ldquo;</b> request to complete ⚠️
+    </div>
     <ParticlesBg className='particles' type='cobweb' bg={true} />
     </>
   )
