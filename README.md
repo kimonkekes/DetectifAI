@@ -18,7 +18,7 @@ It is a responsive website that initially presents a Register/Login screen. Afte
 
 ➡️ The ***back-end API*** uses **Node.js + Express.js**. The server makes calls to an **AI API** provided by Clarifai, that supports the face recognition process. 
 
-➡️ The **back-end AP** also communicates with a **PostgreSQL database** that holds user login and search amount info. The user passwords are stored in the database in a *bcrypt encrypted* format.
+➡️ The ***back-end API*** also communicates with a **PostgreSQL database** that holds user login and search amount info. The user passwords are stored in the database in a *bcrypt encrypted* format.
 
 <br>
 
