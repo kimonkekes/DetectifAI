@@ -8,7 +8,7 @@
 
 **DetectifAI** is a full-stack **face detection app** utilizing **AI technology**. 
 
-It is a responsive website that initially presents a Register/Login screen. After filling your info, you end up in the main page where you can **input an image URL**. The image is rendered on screen and -if it contains a face- the face within the image will be **marked by a blue rectangle**. There is also a **ranking system**, where the total amount of searches you have made.
+It is a responsive website that initially presents a Register/Login screen. After filling your info, you end up in the main page where you can **input an image URL**. The image is rendered on screen and -if it contains any face- all detected faces within the image are **marked by a blue rectangle**. There is also an **entry counter**, which logs the total amount of image detections you have made.
 
 <br>
 
@@ -16,7 +16,7 @@ It is a responsive website that initially presents a Register/Login screen. Afte
 
 ➡️ The ***front-end*** uses **React + Vite**.
 
-➡️ The ***back-end API*** uses **Node.js + Express.js**. The server makes calls to an **AI API** provided by Clarifai, that supports the face recognition process. 
+➡️ The ***back-end API*** uses **Node.js + Express.js**. It calls an **AI API** provided by Clarifai, that supports the face detection process. 
 
 ➡️ The ***back-end API*** also communicates with a **PostgreSQL database** that holds user login and search amount info. The user passwords are stored in the database in a *bcrypt encrypted* format.
 
